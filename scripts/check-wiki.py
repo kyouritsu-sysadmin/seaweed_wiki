@@ -51,5 +51,3 @@ if curly_braces:
 print(f"Found {len(html_comments)} HTML comments outside code blocks")
 if html_comments:
     print("Sample comments:")
-    for fn, c in html_comments[:5]:
-        print(f"  {fn}: {c[:40]}")

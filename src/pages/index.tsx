@@ -8,6 +8,12 @@ import styles from './index.module.css';
 
 const COMMANDS = [
   {
+    id: 'secure-docker',
+    label: 'Secure Docker',
+    comment: '# Start full hardened SeaweedFS cluster with gRPC mTLS, JWT & Nginx SSL:',
+    cmd: 'docker compose -f docker-compose.yml up -d',
+  },
+  {
     id: 'mini',
     label: 'weed mini',
     comment: '# Spin up an all-in-one Master, Volume Server, Filer, and S3 gateway in 1 second:',
@@ -15,7 +21,7 @@ const COMMANDS = [
   },
   {
     id: 'docker',
-    label: 'Docker',
+    label: 'Docker Run',
     comment: '# Run SeaweedFS S3 server instantly in Docker:',
     cmd: 'docker run -p 8333:8333 -p 9333:9333 -p 8888:8888 chrislusf/seaweedfs server -s3',
   },
@@ -23,7 +29,7 @@ const COMMANDS = [
     id: 's3',
     label: 'AWS CLI Test',
     comment: '# Interact using standard AWS S3 CLI:',
-    cmd: 'aws --endpoint-url http://localhost:8333 s3 mb s3://my-bucket\naws --endpoint-url http://localhost:8333 s3 ls',
+    cmd: 'aws --endpoint-url https://localhost:443 --no-verify-ssl s3 ls',
   },
   {
     id: 'mount',
@@ -34,6 +40,12 @@ const COMMANDS = [
 ];
 
 const FEATURES = [
+  {
+    icon: '🛡️',
+    title: 'Secure On-Premise Docker',
+    description: 'Complete production blueprint with gRPC mutual TLS (mTLS), JWT authorization, Nginx reverse proxy, and zero unauthenticated access.',
+    link: '/docs/Secure-On-Premise-Docker-Deployment',
+  },
   {
     icon: '⚡',
     title: 'O(1) Blob Storage',
@@ -64,17 +76,13 @@ const FEATURES = [
     description: 'Mount remote SeaweedFS storage directly in user space on Linux, macOS, and Windows. Native CSI driver for Kubernetes PVs.',
     link: '/docs/FUSE-Mount',
   },
-  {
-    icon: '🔒',
-    title: 'Enterprise Security & FIPS',
-    description: 'Server-side encryption (SSE-S3, SSE-KMS, SSE-C), FIPS-compliant cryptography, OIDC integration, and Kubernetes IRSA authentication.',
-    link: '/docs/Security-Configuration',
-  },
 ];
 
 const QUICKLINKS = [
+  {title: '🛡️ Secure On-Premise Docker Guide', to: '/docs/Secure-On-Premise-Docker-Deployment'},
   {title: '🚀 Quick Start with weed mini', to: '/docs/Quick-Start-with-weed-mini'},
   {title: '🪣 Simplest S3 Setup', to: '/docs/Simplest-S3-Bucket-and-User-Setup'},
+  {title: '🔒 Security Configuration', to: '/docs/Security-Configuration'},
   {title: '🔌 Master Server API', to: '/docs/Master-Server-API'},
   {title: '🔌 Volume Server API', to: '/docs/Volume-Server-API'},
   {title: '🔌 Filer Server API', to: '/docs/Filer-Server-API'},
@@ -83,8 +91,6 @@ const QUICKLINKS = [
   {title: '☸️ Kubernetes & Minikube', to: '/docs/Deployment-to-Kubernetes-and-Minikube'},
   {title: '🐚 weed shell Reference', to: '/docs/weed-shell'},
   {title: '☁️ Cloud Drive & Tiering', to: '/docs/Cloud-Drive-Quick-Setup'},
-  {title: '📊 Benchmarks', to: '/docs/Benchmarks'},
-  {title: '❓ FAQ', to: '/docs/FAQ'},
 ];
 
 function InteractiveTerminal() {
@@ -153,7 +159,10 @@ export default function Home(): ReactNode {
             Effortlessly run Blob Storage, POSIX Filer, S3-Compatible Object Store, and Apache Iceberg Lakehouse.
           </p>
           <div className={styles.heroActions}>
-            <Link className={styles.primaryBtn} to="/docs/Quick-Start-with-weed-mini">
+            <Link className={styles.primaryBtn} to="/docs/Secure-On-Premise-Docker-Deployment">
+              🛡️ Secure Docker Guide
+            </Link>
+            <Link className={styles.secondaryBtn} to="/docs/Quick-Start-with-weed-mini">
               🚀 Quick Start
             </Link>
             <Link className={styles.secondaryBtn} to="/docs/">

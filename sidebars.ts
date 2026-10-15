@@ -12,6 +12,11 @@ const sidebars: SidebarsConfig = {
       label: '🏠 Welcome to Wiki',
     },
     {
+      type: 'doc',
+      id: 'Secure-On-Premise-Docker-Deployment',
+      label: '🛡️ Secure On-Premise Docker Guide',
+    },
+    {
       type: 'category',
       label: '🚀 Introduction',
       collapsible: true,
@@ -385,6 +390,7 @@ const sidebars: SidebarsConfig = {
       collapsible: true,
       collapsed: true,
       items: [
+        'Secure-On-Premise-Docker-Deployment',
         'System-Metrics',
         'weed-shell',
         'Data-Backup',
@@ -441,6 +447,7 @@ const sidebars: SidebarsConfig = {
       collapsible: true,
       collapsed: true,
       items: [
+        'Secure-On-Premise-Docker-Deployment',
         'Security-Overview',
         'Security-Configuration',
         'Cryptography-and-FIPS-Compliance',

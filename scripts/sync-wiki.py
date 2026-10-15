@@ -9,6 +9,12 @@ WIKI_DIR = os.path.join(REPO_ROOT, 'seaweedfs.wiki')
 DOCS_DIR = os.path.join(REPO_ROOT, 'docs')
 STATIC_IMG_DIR = os.path.join(REPO_ROOT, 'static', 'img')
 
+# Docs that are hand-authored in docs/ and must NOT be overwritten by the wiki sync.
+# These are custom guides that may share a filename with a wiki page.
+PROTECTED_DOCS = {
+    'Secure-On-Premise-Docker-Deployment.md',
+}
+
 # Known aliases mapping
 ALIASES = {
     'erasure-coding': 'Erasure-Coding-for-warm-storage',
@@ -349,6 +355,11 @@ def main():
         if mf == '_Sidebar.md':
             continue
 
+        # Skip protected custom docs - do not overwrite hand-authored guides
+        if mf in PROTECTED_DOCS:
+            print(f"Skipping protected doc: {mf}")
+            continue
+
         base_name = os.path.splitext(mf)[0]
         # Clean doc ID
         doc_id = base_name
@@ -446,6 +457,11 @@ def main():
         "      type: 'doc',",
         "      id: 'index',",
         "      label: '🏠 Welcome to Wiki',",
+        "    },",
+        "    {",
+        "      type: 'doc',",
+        "      id: 'Secure-On-Premise-Docker-Deployment',",
+        "      label: '🛡️ Secure On-Premise Docker Guide',",
         "    },",
     ]
 
