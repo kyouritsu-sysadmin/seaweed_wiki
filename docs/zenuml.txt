@@ -1,0 +1,30 @@
+Mount.Background{
+  meta_updates = Filer.PublishSubscribe{
+  }
+}
+Content = Mount.Read{
+  metadata = LocalMetadata{
+  }
+  location = Filer.LookupVolumeId{
+    location = CachedLookup{}
+    location = Master.IfCacheMiss{}
+  }
+  chunks = VolumeServer.ReadChunks(){}
+}
+
+success = Mount.WriteFile{
+  fileIds = Filer.Assign{
+    fileIds = Master.Assign{}
+  }
+  success = VolumeServer.WriteChunks(fileId){}
+  success = Filer.WriteMetaData{
+    success = FilerStore.SaveMetaData{}
+    VolumeServer.PurgeOldChunks{}
+  }
+}
+
+metadata = Filer.Read(path){
+  metadata = FilerStore.Lookup(path)
+}
+content = VolumeServer.Read(fileId) {
+}
